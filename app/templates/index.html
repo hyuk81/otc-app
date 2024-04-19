@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('update_inventory') }}">Update Inventory</a></li>
+            <li><a href="{{ url_for('upload_inventory') }}">Upload Inventory</a></li>
+            <li><a href="{{ url_for('list_jobs') }}">View Jobs</a></li>
+            <li><a href="{{ url_for('check_orders') }}">Check New Orders</a></li>
+            <li><a href="{{ url_for('add_contact') }}">Manage Contacts</a></li>
+            <li><a href="{{ url_for('notification_types') }}">Manage Notification Types</a></li>
+            <li><a href="{{ url_for('associate_notifications') }}">Associate Notifications</a></li>
+            <li><a href="{{ url_for('check_new_orderfiles') }}">Check for new files</a></li>
+        </ul>
+    </nav>
+    <div>
+        <!-- Content based on the route will be rendered here -->
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

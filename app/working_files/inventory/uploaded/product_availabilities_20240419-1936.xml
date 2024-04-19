@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<advice_file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation=".\XMLGuides\HubXML%20Costco%20Inventory.xsd">
+  <advice_file_control_number>20240419-1936-0001</advice_file_control_number>
+  <vendor>orionisca</vendor>
+  <vendorMerchID>costco</vendorMerchID>
+  <product>
+    <vendor_SKU>004111</vendor_SKU>
+    <description>HBAF Variety Almond Bundle (190g x 4) - Costco</description>
+    <merchantSKU>1818740</merchantSKU>
+    <unit_cost>24.35</unit_cost>
+    <qtyonhand>0</qtyonhand>
+    <available>YES</available>
+    <warehouseBreakout>
+      <warehouse warehouse-id="OTC Fulfillment Center">
+        <qtyonhand>0</qtyonhand>
+        </warehouse>
+      </warehouseBreakout>
+    </product>
+  <product>
+    <vendor_SKU>004128</vendor_SKU>
+    <description>HBAF Honey Butter Almond Bundle (190g x 4) - Costco</description>
+    <merchantSKU>1818723</merchantSKU>
+    <unit_cost>24.35</unit_cost>
+    <qtyonhand>0</qtyonhand>
+    <available>YES</available>
+    <warehouseBreakout>
+      <warehouse warehouse-id="OTC Fulfillment Center">
+        <qtyonhand>0</qtyonhand>
+        </warehouse>
+      </warehouseBreakout>
+    </product>
+  <product>
+    <vendor_SKU>004135</vendor_SKU>
+    <description>HBAF Wasabi Almond Bundle (190g x 4) - Costco</description>
+    <merchantSKU>1818736</merchantSKU>
+    <unit_cost>24.35</unit_cost>
+    <qtyonhand>0</qtyonhand>
+    <available>YES</available>
+    <warehouseBreakout>
+      <warehouse warehouse-id="OTC Fulfillment Center">
+        <qtyonhand>0</qtyonhand>
+        </warehouse>
+      </warehouseBreakout>
+    </product>
+  <product>
+    <vendor_SKU>004142</vendor_SKU>
+    <description>HBAF Garlic Bread Almond Bundle (190gx4) - Costco</description>
+    <merchantSKU>1818739</merchantSKU>
+    <unit_cost>24.35</unit_cost>
+    <qtyonhand>62.0</qtyonhand>
+    <available>YES</available>
+    <warehouseBreakout>
+      <warehouse warehouse-id="OTC Fulfillment Center">
+        <qtyonhand>62.0</qtyonhand>
+        </warehouse>
+      </warehouseBreakout>
+    </product>
+  <product>
+    <vendor_SKU>004159</vendor_SKU>
+    <description>HBAF Black Sugar Milk Tea Almond Bundle (190g x 4) - Costco</description>
+    <merchantSKU>1818733</merchantSKU>
+    <unit_cost>24.35</unit_cost>
+    <qtyonhand>52.0</qtyonhand>
+    <available>YES</available>
+    <warehouseBreakout>
+      <warehouse warehouse-id="OTC Fulfillment Center">
+        <qtyonhand>52.0</qtyonhand>
+        </warehouse>
+      </warehouseBreakout>
+    </product>
+  <advice_file_count>5</advice_file_count>
+  </advice_file>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification Types</title>
+</head>
+<body>
+    <h1>Notification Types</h1>
+    <form method="POST">
+        <input type="text" name="description" placeholder="Description" required>
+        <button type="submit">Add Notification Type</button>
+    </form>
+
+    <ul>
+        {% for type in notification_types %}
+        <li>{{ type.description }}
+            <!-- Optionally add a delete button -->
+            <form method="POST" action="{{ url_for('delete_notification_type', type_id=type.type_id) }}" style="display: inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

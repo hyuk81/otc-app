@@ -1,0 +1,89 @@
+import paramiko
+import os
+import logging
+import json
+from app.config import (SFTP_HOST, SFTP_PORT, SFTP_USER, SFTP_PASSWORD, SFTP_FILE_NEWORDERS, FILE_NEW_ORDER_DOWNLOAD)
+from app.notifications.new_order_notify import send_notification
+
+# Configure logging
+logging.basicConfig(
+    filename='sftp_monitor.log',  # Log file path
+    level=logging.DEBUG,          # Logging level
+    format='%(asctime)s - %(levelname)s - %(message)s'  # Log message format
+)
+
+STATE_FILE = 'file_state.json'  # File to store the state
+
+def load_previous_state():
+    """Load the previous state of files from a file."""
+    try:
+        with open(STATE_FILE, 'r') as f:
+            return set(json.load(f))
+    except FileNotFoundError:
+        return set()
+
+def save_current_state(files):
+    """Save the current state of files to a file."""
+    with open(STATE_FILE, 'w') as f:
+        json.dump(list(files), f)
+
+def download_new_files(sftp, sftp_directory, file_names, local_directory):
+    """Download new files from SFTP to local directory."""
+    for file_name in file_names:
+        local_path = os.path.join(local_directory, file_name)
+        remote_path = os.path.join(sftp_directory, file_name)
+        try:
+            sftp.get(remote_path, local_path)
+            logging.info(f"Downloaded {file_name} to {local_path}")
+        except Exception as e:
+            logging.error(f"Failed to download {file_name}: {str(e)}")
+
+""" def monitor_sftp_new_orders():
+    transport = paramiko.Transport((SFTP_HOST, int(SFTP_PORT)))
+    try:
+        transport.connect(username=SFTP_USER, password=SFTP_PASSWORD)
+        sftp = paramiko.SFTPClient.from_transport(transport)
+        try:
+            previous_files = load_previous_state()
+            current_files = set(sftp.listdir(SFTP_FILE_NEWORDERS))
+            new_files = current_files - previous_files
+            if new_files:
+                logging.info("New files detected: " + ', '.join(new_files))
+                download_new_files(sftp, SFTP_FILE_NEWORDERS, new_files, FILE_NEW_ORDER_DOWNLOAD)
+            save_current_state(current_files)
+        except Exception as e:
+            logging.error("Failed to monitor directory: " + str(e))
+        finally:
+            sftp.close()
+    except Exception as e:
+        logging.error("Failed to connect to SFTP: " + str(e))
+    finally:
+        transport.close() """
+
+def monitor_sftp_new_orders():
+    transport = paramiko.Transport((SFTP_HOST, int(SFTP_PORT)))
+    try:
+        transport.connect(username=SFTP_USER, password=SFTP_PASSWORD)
+        sftp = paramiko.SFTPClient.from_transport(transport)
+        try:
+            previous_files = load_previous_state()
+            current_files = set(sftp.listdir(SFTP_FILE_NEWORDERS))
+            new_files = current_files - previous_files
+            if new_files:
+                file_list = ', '.join(new_files)
+                logging.info("New files detected: " + file_list)
+                download_new_files(sftp, SFTP_FILE_NEWORDERS, new_files, FILE_NEW_ORDER_DOWNLOAD)
+                send_notification("New SFTP Files Detected", f"New files detected on SFTP: {file_list}")
+            save_current_state(current_files)
+        except Exception as e:
+            logging.error("Failed to monitor directory: " + str(e))
+        finally:
+            sftp.close()
+    except Exception as e:
+        logging.error("Failed to connect to SFTP: " + str(e))
+    finally:
+        transport.close()
+
+
+if __name__ == '__main__':
+    monitor_sftp_new_orders()

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Associate Notifications</title>
+</head>
+<body>
+    <h1>Associate Contact with Notification Types</h1>
+    <form method="POST" action="{{ url_for('associate_notifications') }}">
+        <label for="contact">Select Contact:</label>
+        <select name="contact_id" id="contact">
+            {% for contact in contacts %}
+                <option value="{{ contact.contact_id }}">{{ contact.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="notifications">Select Notification Types:</label>
+        <select name="notification_type_ids" id="notifications" multiple>
+            {% for notification in notification_types %}
+                <option value="{{ notification.type_id }}">{{ notification.description }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Associate</button>
+    </form>
+
+    <h2>Current Associations</h2>
+    <ul>
+        {% for contact in contacts %}
+            <li>{{ contact.name }}: 
+                {% for notification in contact.notification_types %}
+                    {{ notification.description }} 
+                    <!-- Link to delete the association -->
+                    <a href="{{ url_for('delete_association', contact_id=contact.contact_id, type_id=notification.type_id) }}">Remove</a>
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
